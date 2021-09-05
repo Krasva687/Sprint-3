@@ -13,5 +13,6 @@ fun main() {
     user3.city = "Tomsk"
 
     println(user1.equals(user3))
-
+    val room = Room("UnderWorld")
+    print(room.load())
 }
