@@ -10,7 +10,7 @@ internal class CertificateTypeTest {
 
     @Test
     @DisplayName("Certificate type class test")
-    fun checkTypes(){
+    fun checkTypesTest(){
         assertNotNull(CertificateType.NDFL)
         assertNotNull(CertificateType.LABOUR_BOOK)
         assertEquals(CertificateType.values().size, 2)
