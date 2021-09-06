@@ -30,7 +30,22 @@ internal class HrDepartmentTest {
     }
 
     @Test
-    fun notAllowRequestExceptionTest(){
+    fun notAllowRequestExceptionNDFLTest(){
+        //Check NDFL exception for Tuesday
+        HrDepartment.clock = Clock.fixed(Instant.parse("2021-08-31T15:30:00Z"), clockFormat)
+        every { certificateRequest.certificateType } returns CertificateType.NDFL
+        assertThrows(NotAllowReceiveRequestException::class.java, {HrDepartment.receiveRequest(certificateRequest)})
+
+        //Check NDFL exception for Thursday
+        HrDepartment.clock = Clock.fixed(Instant.parse("2021-09-02T15:30:00Z"), clockFormat)
+        every { certificateRequest.certificateType } returns CertificateType.NDFL
+        assertThrows(NotAllowReceiveRequestException::class.java, {HrDepartment.receiveRequest(certificateRequest)})
+
+    }
+
+    @Test
+    fun notAllowRequestExceptionLabourBookTest(){
+
         //Check LABOUR_BOOK exception for Monday
         HrDepartment.clock = Clock.fixed(Instant.parse("2021-08-30T15:30:00Z"), clockFormat)
         every { certificateRequest.certificateType } returns CertificateType.LABOUR_BOOK
@@ -44,16 +59,6 @@ internal class HrDepartmentTest {
         //Check LABOUR_BOOK exception for Friday
         HrDepartment.clock = Clock.fixed(Instant.parse("2021-09-03T15:30:00Z"), clockFormat)
         every { certificateRequest.certificateType } returns CertificateType.LABOUR_BOOK
-        assertThrows(NotAllowReceiveRequestException::class.java, {HrDepartment.receiveRequest(certificateRequest)})
-
-        //Check NDFL exception for Tuesday
-        HrDepartment.clock = Clock.fixed(Instant.parse("2021-08-31T15:30:00Z"), clockFormat)
-        every { certificateRequest.certificateType } returns CertificateType.NDFL
-        assertThrows(NotAllowReceiveRequestException::class.java, {HrDepartment.receiveRequest(certificateRequest)})
-
-        //Check NDFL exception for Thursday
-        HrDepartment.clock = Clock.fixed(Instant.parse("2021-09-02T15:30:00Z"), clockFormat)
-        every { certificateRequest.certificateType } returns CertificateType.NDFL
         assertThrows(NotAllowReceiveRequestException::class.java, {HrDepartment.receiveRequest(certificateRequest)})
 
     }
