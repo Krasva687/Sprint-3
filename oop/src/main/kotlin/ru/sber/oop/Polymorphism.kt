@@ -34,6 +34,7 @@ class Player(
 abstract class Monster(open val name: String, open val description: String): Fightable{
 
     override fun attack(opponent: Fightable): Int {
+        healthPoints -= damageRoll
         return damageRoll
     }
 
